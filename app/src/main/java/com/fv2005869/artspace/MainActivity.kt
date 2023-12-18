@@ -14,12 +14,16 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.DefaultShadowColor
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -68,10 +72,16 @@ fun ViewImage(modifier: Modifier = Modifier) {
 
     Column(
         modifier = Modifier
-            .border(2.dp, Color.Black, shape = RectangleShape)
+            /*.border(2.dp, Color.Black, shape = RectangleShape)*/
             .padding(20.dp)
-            .background(Color.Yellow)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .shadow(
+                15.dp,
+                RectangleShape,
+                true,
+                DefaultShadowColor,
+                DefaultShadowColor
+            ),
     ) {
         Image(
             painter = painterResource(id = R.drawable.o_pensador_august_rodin_c),
@@ -90,7 +100,7 @@ fun ViewInfo(modifier: Modifier = Modifier) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .border(width = 2.dp, Color.Black, shape = RectangleShape)
+            /*.border(width = 2.dp, Color.Black, shape = RectangleShape)*/
             .padding(10.dp),
         horizontalAlignment = Alignment.Start,
     ) {
@@ -112,12 +122,14 @@ fun ViewButtons(modifier: Modifier = Modifier) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .border(width = 2.dp, Color.Black, shape = RectangleShape),
+            /*.border(width = 2.dp, Color.Black, shape = RectangleShape)*/,
         horizontalArrangement = Arrangement.SpaceAround
     ) {
+        val buttonWidth = 120.dp
         Column {
             Button(
-                onClick = {}
+                onClick = {},
+                modifier = Modifier.width(buttonWidth)
             ) {
                 Text(text = "Voltar")
             }
@@ -128,6 +140,7 @@ fun ViewButtons(modifier: Modifier = Modifier) {
         Column {
             Button(
                 onClick = {},
+                modifier = Modifier.width(buttonWidth)
             ) {
                 Text(
                     text = "Avançar"
@@ -144,7 +157,6 @@ fun ArtSpaceAppPreview(modifier: Modifier = Modifier) {
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .background(Color.Red)
                 .padding(20.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
