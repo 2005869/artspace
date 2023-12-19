@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,14 +13,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.DefaultShadowColor
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
@@ -40,35 +42,61 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ArtSpaceTheme {
-
-                /*
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    ArtSpaceAppPreview()
-                }
-
-                 */
+                ArtSpaceAppPreview()
             }
         }
     }
 }
 
+
+@Preview(showBackground = true)
 @Composable
-fun ArtSpaceApp(modifier: Modifier = Modifier) {
-    Row {
-        Text(
-            text = stringResource(id = R.string.app_name),
-            fontSize = 30.sp,
-            fontWeight = FontWeight.Black
-        )
+fun ArtSpaceAppPreview(modifier: Modifier = Modifier) {
+    ArtSpaceTheme {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(20.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
+            ArtSpaceApp()
+        }
+
     }
 }
 
 @Composable
-fun ViewImage(modifier: Modifier = Modifier) {
+fun ArtSpaceApp(modifier: Modifier = Modifier) {
+
+    /* Imagem */
+    var quadro by remember { mutableStateOf(0) }
+
+    var tamMax = 1
+    var imagem = 1
+    var titulo = 1
+    var autor = 1
+
+    when (quadro) {
+        0 -> {
+            imagem = R.drawable.o_pensador_august_rodin_c
+            titulo = R.string.titulo00
+            autor = R.string.autor00
+        }
+
+        1 -> {
+            imagem = R.drawable.pensador_mona_lisa_c
+            titulo = R.string.titulo01
+            autor = R.string.autor01
+        }
+
+        else -> {
+            imagem = R.drawable.o_pensador_august_rodin_c
+            titulo = R.string.titulo01
+            autor = R.string.autor01
+        }
+    }
+
 
     Column(
         modifier = Modifier
@@ -84,7 +112,7 @@ fun ViewImage(modifier: Modifier = Modifier) {
             ),
     ) {
         Image(
-            painter = painterResource(id = R.drawable.o_pensador_august_rodin_c),
+            painter = painterResource(id = imagem),
             contentDescription = null,
             contentScale = ContentScale.FillWidth,
             alignment = Alignment.Center,
@@ -93,10 +121,11 @@ fun ViewImage(modifier: Modifier = Modifier) {
                 .padding(15.dp)
         )
     }
-}
 
-@Composable
-fun ViewInfo(modifier: Modifier = Modifier) {
+    Spacer(modifier = Modifier)
+
+    /* texto */
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -105,30 +134,37 @@ fun ViewInfo(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.Start,
     ) {
         Text(
-            text = "O Pensador",
+            text = stringResource(id = titulo),
             fontSize = 35.sp,
             fontWeight = FontWeight.Light,
         )
         Text(
-            text = "August Rodin (1880)",
+            text = stringResource(id = autor),
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp
         )
     }
-}
 
-@Composable
-fun ViewButtons(modifier: Modifier = Modifier) {
+    Spacer(modifier = Modifier)
+
+    /* Botões */
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            /*.border(width = 2.dp, Color.Black, shape = RectangleShape)*/,
+        /*.border(width = 2.dp, Color.Black, shape = RectangleShape)*/,
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         val buttonWidth = 120.dp
         Column {
             Button(
-                onClick = {},
+                onClick = {
+                    if (quadro == 0) {
+                        quadro = tamMax
+                    } else {
+                        quadro -= 1
+                    }
+                },
                 modifier = Modifier.width(buttonWidth)
             ) {
                 Text(text = "Voltar")
@@ -139,7 +175,13 @@ fun ViewButtons(modifier: Modifier = Modifier) {
         }
         Column {
             Button(
-                onClick = {},
+                onClick = {
+                    if (quadro == tamMax) {
+                        quadro = 0
+                    } else {
+                        quadro += 1
+                    }
+                },
                 modifier = Modifier.width(buttonWidth)
             ) {
                 Text(
@@ -148,25 +190,5 @@ fun ViewButtons(modifier: Modifier = Modifier) {
             }
         }
     }
-}
 
-@Preview(showBackground = true)
-@Composable
-fun ArtSpaceAppPreview(modifier: Modifier = Modifier) {
-    ArtSpaceTheme {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(20.dp),
-            verticalArrangement = Arrangement.SpaceBetween
-        ) {
-            ArtSpaceApp()
-            ViewImage()
-            Spacer(modifier = Modifier)
-            ViewInfo()
-            Spacer(modifier = Modifier)
-            ViewButtons()
-        }
-
-    }
 }
