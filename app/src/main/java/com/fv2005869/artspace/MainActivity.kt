@@ -72,7 +72,7 @@ fun ArtSpaceApp(modifier: Modifier = Modifier) {
     /* Imagem */
     var quadro by remember { mutableStateOf(0) }
 
-    var tamMax = 1
+    var tamMax = 4
     var imagem = 1
     var titulo = 1
     var autor = 1
@@ -88,6 +88,21 @@ fun ArtSpaceApp(modifier: Modifier = Modifier) {
             imagem = R.drawable.pensador_mona_lisa_c
             titulo = R.string.titulo01
             autor = R.string.autor01
+        }
+        2 -> {
+            imagem = R.drawable.girassois_vincent_van_gogh_c
+            titulo = R.string.titulo02
+            autor = R.string.autor02
+        }
+        3 -> {
+            imagem = R.drawable.pensador_o_grito_c
+            titulo = R.string.titulo03
+            autor = R.string.autor03
+        }
+        4 -> {
+            imagem = R.drawable.pensador_a_moca_com_brinco_de_perolas_c
+            titulo = R.string.titulo04
+            autor = R.string.autor04
         }
 
         else -> {

@@ -7,4 +7,12 @@
     <string name="titulo01">Mona Lisa</string>
     <string name="autor01">Leonardo da Vinci (1503-1506)</string>
 
+    <string name="titulo02">Os Girassóis</string>
+    <string name="autor02">Vicent Van Gogh (1888)</string>
+
+    <string name="titulo03">O Grito</string>
+    <string name="autor03">Edvard Munch (1893)</string>
+
+    <string name="titulo04">Moça com Brinco de Pérola</string>
+    <string name="autor04">Johannes Vermeer (1665)</string>
 </resources>
